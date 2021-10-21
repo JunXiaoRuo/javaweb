@@ -43,7 +43,8 @@
         </div>
         <form id="detailForm" action="${pageContext.request.contextPath}/reg" method="post" onsubmit="return check()">
             <input type="text" name="name" id="name" placeholder="昵称">
-            <input type="text" name="username" id="username" placeholder="用户名">
+            <input type="text" name="username" id="username" placeholder="用户名(字母或数字)" onkeyup="value=value.replace(/[\W]/g,'') "
+                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
             <input type="password" name="password"  placeholder="密码" id="password" >
             <input type="password"  id="upassword" placeholder="确认密码" name="upassword">
             <p class="message text-warning">请输入8~18位密码</p><br><br>

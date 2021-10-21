@@ -11,7 +11,7 @@
     <title>退出登录</title>
 </head>
 <body>
-<%session.removeAttribute("user"); session.invalidate(); out.print("<script>alert('用户即将退出，确定后退出该页面。');window.location.href='/Hungry/main.jsp'</script>"); %>
+<%session.removeAttribute("user"); session.invalidate(); out.print("<script>alert('用户即将退出，确定后退出该页面。');window.location.href='/main.jsp'</script>"); %>
 
 </body>
 </html>

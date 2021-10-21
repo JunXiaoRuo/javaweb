@@ -28,7 +28,7 @@
     User user1 = (User) session.getAttribute("user");
     if (user1 == null) {
         response.sendRedirect("login.jsp");
-    }else if(user1.getId() == 3 ||user1.getIdent() == 0){
+    }else if(user1.getIdent() == 0 ||user1.getIdent() == 1||user1.getIdent() == 2){
 
     User user = (User) request.getAttribute("UpUser");
 %>
@@ -99,6 +99,7 @@
 
 <%
     }else {
+        System.out.println(user1.getIdent());
 %>
 <div class="alert alert-danger">您好！<%=user1.getName()%>，非管理员，禁止访问。&nbsp;<a href="${pageContext.request.contextPath}/login.jsp">点我登录管理员账号重试</a></div>
 <%
