@@ -27,8 +27,11 @@ public class UserUpdateServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
 
-        //接收请求参数
+        HttpSession session = req.getSession();
+        String updatetype = (String) session.getAttribute("updatetype");
 
+
+        //接收请求参数
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String username = req.getParameter("username");
@@ -39,13 +42,29 @@ public class UserUpdateServlet extends HttpServlet {
         String comment = req.getParameter("comment");
         String sname = req.getParameter("sname");
 
-        password = MD5.create().digestHex(password+"JunXiaoRuo");
+        //存储数据
+        UserService userService = new UserService();
+        String password1 = null;
+        try {
+            password1 = userService.findPasswordById(id);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        if (password.equals("d41d8cd98f00b204e9800998ecf8427e")){//d41d8cd98f00b204e9800998ecf8427e
+            password = password1;
+        }else {
+            password = MD5.create().digestHex(password+"JunXiaoRuo");
+        }
 
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String day = dateFormat.format(date);
 
         User user = new User();
+
         user.setId(Integer.parseInt(id));
         user.setName(name);
         user.setUsername(username);
@@ -57,10 +76,6 @@ public class UserUpdateServlet extends HttpServlet {
         user.setSname(sname);
         user.setTime(day);
 
-        //System.out.println(user.toString());
-
-        //存储数据
-        UserService userService = new UserService();
         int i = 0;
         try {
             i = userService.update(user);
@@ -68,9 +83,6 @@ public class UserUpdateServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        HttpSession session = req.getSession();
-        String updatetype = (String) session.getAttribute("updatetype");
 
         if (updatetype.equals("1")){
             //跳转

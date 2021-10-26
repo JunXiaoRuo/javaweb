@@ -12,6 +12,25 @@ blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
 table{border-collapse:collapse;border-spacing:0;}
 /* start editing from here */
+.same{
+	padding: 0;text-align:center;
+	margin: 0 auto;
+	border: 1px solid red;width:630px;
+	height: 47px;vertical-align: middle;font-size:0px;
+}
+.textSearch
+{
+	height:45px;line-height:45px;width:500px;margin:0 auto;font-size:18px;padding:0;vertical-align:top;
+	border:0;outline:none;
+}
+.btnSearch
+{
+	background:transparent;border:0;
+	background-repeat:no-repeat;
+	width:130px;height:47px;margin:0;padding:0;
+	border:none;outline:none;border-width:0;
+	border-style:none;box-sizing: padding-box;
+}
 a{text-decoration:none;}
 .txt-rt{text-align:right;}/* text align right */
 .txt-lt{text-align:left;}/* text align left */

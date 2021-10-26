@@ -61,12 +61,7 @@
                                 <p class="text-success"> 密码(留空不更改密码)</p>
                                 <input type="password" value="" name="password" id="password">
                             </p>
-                            <hr>
-                            <p>
-                                <p class="text-success"> 用户类型</p>
-                                <input type="text" value="<%=user.getIdent()%>" name="ident" id="ident">
-                            </p>
-                            <p class="text-warning">0：普通客户；1:商户，2:系统管理员</p>
+                            <input type="hidden" value="<%=user.getIdent()%>" name="ident" id="ident">
                             <hr>
                             <p><p class="text-success"> 手机号</p>
                                 <input type="text" value="<%=user.getTelephone()%>" name="telephone" id="telephone">

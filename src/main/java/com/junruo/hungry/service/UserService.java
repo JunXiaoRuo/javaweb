@@ -36,6 +36,9 @@ public class UserService {
     public User findByPhone(String phone) throws  SQLException{
         return userDao.findByPhone(phone);
     }
+    public String findPasswordById(String id) throws  SQLException{
+        return userDao.findPasswordById(id);
+    }
 
 
 }

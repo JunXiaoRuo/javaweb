@@ -49,10 +49,11 @@
             <input type="password"  id="upassword" placeholder="确认密码" name="upassword">
             <p class="message text-warning">请输入8~18位密码</p><br><br>
             <input type="text" name="phone" id="phone" placeholder="手机号">
-            <input type="button" id="btn" name="btn" value="发送验证码" onclick="sendCode(this)" ><br><br>
-            <input type="text" name="code" id="code" placeholder="输入验证码">
+            <input type="text" name="code" id="code" placeholder="输入验证码" class="textSearch">
+            <input type="button" id="btn" name="btn" value="发送验证码"class="btn btn-primary" onclick="sendCode(this)" class="btnSearch"><br><br>
+
             <div class="submit">
-                <input type="submit"  value="注册" >
+                <input id="zhuce" type="submit"  value="注册">
             </div>
 
 
@@ -69,13 +70,17 @@
 <script type="text/javascript">
     var password = document.querySelector('#password');
     var message = document.querySelector('.message');
+    var zmnumReg = /^[0-9a-zA-Z]*$/;
 
     password.onblur = function() {
         if (this.value.length < 8 || this.value.length > 18) {
             message.innerHTML = '密码长度错误，应为8~18位';
             message.className = 'message text-danger';
-        } else {
-            message.innerHTML = '密码长度正确';
+        } else if (!zmnumReg.test(this.value)){
+            message.innerHTML = '密码只能是字母或者数字';
+            message.className = 'message text-danger';
+        }else {
+            message.innerHTML = '密码格式正确';
             message.className = 'message text-success';
         }
     }
@@ -130,9 +135,12 @@
     var nums = 60;
     var btn;
     var phone = document.querySelector('#phone');
+    var reg_tel = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
     function sendCode(thisBtn)
     {
         if (phone.value.length !== 11) {
+            alert("请输入11位手机号码！")
+        } else if (!reg_tel.test(phone.value)) {
             alert("手机号不正确！")
         } else {
             btn = thisBtn;

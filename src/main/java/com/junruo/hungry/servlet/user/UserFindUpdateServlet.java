@@ -46,9 +46,15 @@ public class UserFindUpdateServlet extends HttpServlet {
             req.setAttribute("mess","未找到改ID用户，请输入正确的ID");
             req.getRequestDispatcher("findById.jsp").forward(req,resp);
         }else {
-            //System.out.println(u.toString());
-            req.setAttribute("UpUser",u);
-            req.getRequestDispatcher("update.jsp").forward(req,resp);
+            if(type.equals("1")){
+                req.setAttribute("UpUser",u);
+                req.getRequestDispatcher("userupdate.jsp").forward(req,resp);
+            }else {
+                //System.out.println(u.toString());
+                req.setAttribute("UpUser",u);
+                req.getRequestDispatcher("update.jsp").forward(req,resp);
+            }
+
         }
 
 

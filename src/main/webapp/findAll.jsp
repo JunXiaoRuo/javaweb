@@ -158,7 +158,7 @@
 
     }
     function updateUser(id){
-        httpPost("findUpdate", {"id":id});
+        httpPost("findUpdate", {"type":2,"id":id});
             //window.location.href="${pageContext.request.contextPath}/findUpdate?id="+id;
         }
 

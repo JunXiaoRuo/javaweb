@@ -64,12 +64,9 @@
         var password = $("#password").val();
 
         if(username == null || username == ""){
-            alert("ID不能为空");
+            alert("账号不能为空");
             return false;
 
-        }else if (password == null || password == ""){
-            alert("密码不能为空");
-            return false;
         }
 
         let pwd = document.getElementById('password') // 获取 password 的属性值

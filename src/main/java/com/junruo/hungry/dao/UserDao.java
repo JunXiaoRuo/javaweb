@@ -156,4 +156,18 @@ public class UserDao {
         }
         return u;
     }
+    public String findPasswordById(String id) throws  SQLException{
+        String sql = "select password from user where id=?;";
+        ps = connection.prepareStatement(sql);
+        ps.setObject(1,id);
+
+        ResultSet resultSet = ps.executeQuery();
+        String password = null;
+        while (resultSet.next()){
+            password= resultSet.getString("password");
+        }
+
+
+        return password;
+    }
 }
