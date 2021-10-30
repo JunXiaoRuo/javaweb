@@ -60,7 +60,7 @@ public class UserDao {
     }
 
     public List<User> findAll() throws SQLException{
-        String sql = "select user.id,user.name,user.username,user.password,user.ident,power.pname,user.telephone,user.address,user.comment,user.time,user.sname from user left join power on user.ident = power.id";
+        String sql = "select user.id,user.name,user.username,user.password,user.ident,power.pname,user.telephone,user.address,user.comment,user.time,user.sname from user left join power on user.ident = power.id ORDER BY user.id";
         ps = connection.prepareStatement(sql);
         ResultSet resultSet = ps.executeQuery();
         List<User> list = new ArrayList<User>();

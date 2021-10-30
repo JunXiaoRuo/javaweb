@@ -1,19 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 18137
-  Date: 2021/9/27
-  Time: 12:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" language="java" %>
 <html>
 <head>
-    <title>注册</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
     <!-- 引入 Bootstrap -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="${pageContext.request.contextPath}/css/bootstrapValidator.css" rel="stylesheet" type="text/css" />
 
 
     <script src="${pageContext.request.contextPath}/js/md5.js"></script>
@@ -21,108 +11,161 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrapValidator.js"></script>
 
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.css">
+    <!--樱花特效引入-->
+    <script src="${pageContext.request.contextPath}/js/sakuraPlus.js"></script>
+    <style>
+        body{
+            width:100%;
+            height:100%;
+            background: url(images/background.jpg) no-repeat;
+            background-size:cover;
+            /* 背景半透明，1为不透明 */
+            opacity: 0.8; /* ALL */
+            -moz-opacity:0.5;/* FIREFOX */
+            filter:alpha(Opacity=50);/* IE */
+
+        }
+        .modal {
+            position: static;
+            display: block;
+        }
+    </style>
+
+    <script>
+        function login(){
+            window.location.href='/phoneLogin.jsp'
+        }
+    </script>
 </head>
-<body>
+<body class="text-center" >
 
-<div class="main text-center" >
-    <div class="login-form">
-        <h1>注册</h1>
-        <br>
-        <%
-            String code = (String) request.getAttribute("code");
-            if (code == "0"){
-        %>
-        <div class="alert alert-danger">${mess}</div>
-        <%
-            }
-        %>
-        <div class="head">
-            <img src="${pageContext.request.contextPath}/images/user.png" alt=""/>
-        </div>
-        <form id="detailForm" action="${pageContext.request.contextPath}/reg" method="post" onsubmit="return check()">
-            <input type="text" name="name" id="name" placeholder="昵称">
-            <input type="text" name="username" id="username" placeholder="用户名(字母或数字)" onkeyup="value=value.replace(/[\W]/g,'') "
-                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
-            <input type="password" name="password"  placeholder="密码" id="password" >
-            <input type="password"  id="upassword" placeholder="确认密码" name="upassword">
-            <p class="message text-warning">请输入8~18位密码</p><br><br>
-            <input type="text" name="phone" id="phone" placeholder="手机号">
-            <input type="text" name="code" id="code" placeholder="输入验证码" class="textSearch">
-            <input type="button" id="btn" name="btn" value="发送验证码"class="btn btn-primary" onclick="sendCode(this)" class="btnSearch"><br><br>
-
-            <div class="submit">
-                <input id="zhuce" type="submit"  value="注册">
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">注册</h2>
             </div>
+            <div class="modal-body">
+                <%
+                    String code = (String) request.getAttribute("code");
+                    if (code == "0"){
+                %>
 
+                <div class="alert alert-danger">${mess}</div>
+                <br>
+                <%
+                    }
+                %>
+                <form class="form clo-md-12 center-block" id="regForm" action="${pageContext.request.contextPath}/reg" method="post" onsubmit="return check();">
 
+                    <div class="form-group-lg" id="nameDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-pencil-fill"></i>
+                            </span>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="昵称" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="accountDiv">
+                        <div class="input-group">
+                           <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input class="form-control" id="username" name="username" type="text" placeholder="用户名(字母或数字)" onkeyup="value=value.replace(/[\W]/g,'') "
+                                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="pwdDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-key-fill"></i>
+                            </span>
+                            <input class="form-control" id="password" name="password" type="password" placeholder="密码" required autofocus>
+                            <span class="badge bg-success message1"><p class="message">请输入8~18位密码</p></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="upwdDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-key-fill"></i>
+                            </span>
+                            <input class="form-control" id="upassword" name="upassword" type="password" placeholder="确认密码" required autofocus>
+                            <span class="badge bg-success message2 visually-hidden"><p>两次密码不一致</p></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="telDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+                            <input class="form-control" id="phone" name="phone" type="text" placeholder="手机号" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="addressDiv">
+                        <div class="input-group">
+                            <span class="input-group-text" >
+                                <i class="bi bi-info-square-fill"></i>
+                            </span>
+                            <input class="form-control" id="code" name="code" type="text" placeholder="验证码" required autofocus>
+                            <input type="button" id="btn" name="btn" value="发送验证码"class="btn btn-outline-secondary" onclick="sendCode(this)" class="btnSearch">
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">注册</button>
+                    <br><br>
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="login();">登录</button>
 
-            <p><a href="${pageContext.request.contextPath}/login.jsp">账号密码登录</a></p>
-            <p><a href="${pageContext.request.contextPath}/phoneLogin.jsp">手机号登录</a></p>
-        </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
     </div>
 </div>
-
-
-
 </body>
 <script type="text/javascript">
     var password = document.querySelector('#password');
+    var upassword = document.querySelector('#upassword');
     var message = document.querySelector('.message');
+    var message2 = document.querySelector('.message2');
+    var message1 = document.querySelector('.message1');
     var zmnumReg = /^[0-9a-zA-Z]*$/;
 
     password.onblur = function() {
         if (this.value.length < 8 || this.value.length > 18) {
+            message1.className = 'badge bg-danger message1'
             message.innerHTML = '密码长度错误，应为8~18位';
-            message.className = 'message text-danger';
+            message.className = 'message';
         } else if (!zmnumReg.test(this.value)){
             message.innerHTML = '密码只能是字母或者数字';
-            message.className = 'message text-danger';
+            message1.className = 'badge bg-danger message1'
+            message.className = 'message';
         }else {
             message.innerHTML = '密码格式正确';
-            message.className = 'message text-success';
+            message1.className = 'badge bg-danger message1 visually-hidden'
+            message.className = 'message';
+        }
+    }
+
+    upassword.onblur = function() {
+        if(this.value != password.value ){
+            message2.className = 'badge bg-danger message2'
+        }else {
+            message2.className = 'badge bg-danger message2  visually-hidden'
         }
     }
 
     function check(){
-        var name = $("#name").val();
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var upassword = $("#upassword").val();
-        var phone = $("#phone").val();
-        var code = $("#code").val();
-
-        if(phone == null || phone == ""){
-            alert("手机号不能为空");
-            return false;
-        }
-        if(code == null || code == ""){
-            alert("验证码不能为空");
-            return false;
-        }
-
-        if(name == null || name == ""){
-            alert("昵称不能为空");
-            return false;
-        }
-        if(username == null || username == ""){
-            alert("用户名不能为空");
-            return false;
-        }
-        if(password == null || password == ""){
-            alert("密码不能为空");
-            return false;
-        }
-        if(upassword == null || upassword == ""){
-            alert("确认密码不能为空");
-            return false;
-        }
-        if(upassword != password ){
-            alert("两次密码不同");
-            return false;
-        }
-
         let pwd = document.getElementById('password') // 获取 password 的属性值
         pwd.value = md5(pwd.value)
 
@@ -170,5 +213,4 @@
 
 
 </script>
-
 </html>

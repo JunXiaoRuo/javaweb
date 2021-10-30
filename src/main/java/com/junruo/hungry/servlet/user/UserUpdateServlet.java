@@ -42,20 +42,22 @@ public class UserUpdateServlet extends HttpServlet {
         String comment = req.getParameter("comment");
         String sname = req.getParameter("sname");
 
-        //存储数据
+        
+        //获取数据库中的密码
         UserService userService = new UserService();
         String password1 = null;
         try {
             password1 = userService.findPasswordById(id);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
         if (password.equals("d41d8cd98f00b204e9800998ecf8427e")){//d41d8cd98f00b204e9800998ecf8427e
+            System.out.println("不修改密码");
             password = password1;
         }else {
+            System.out.println("密码已修改");
             password = MD5.create().digestHex(password+"JunXiaoRuo");
         }
 

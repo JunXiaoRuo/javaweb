@@ -20,6 +20,11 @@
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <!-- 包括所有已编译的插件 -->
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/md5.js"></script>
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.css">
 </head>
 <body>
 
@@ -58,18 +63,162 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <input type="text" name="name" id="name" placeholder="昵称"><br>
-                <input type="text" name="username" id="username" placeholder="用户名"><br>
-                <input type="password" name="password"  placeholder="密码" id="password"><br>
-                <input type="password"  id="upassword" placeholder="确认密码">
+                <form class="form clo-md-12 center-block" id="regForm" action="${pageContext.request.contextPath}/addUser" method="post" onsubmit="return check();">
+
+                    <div class="form-group-lg" id="nameDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-pencil-fill"></i>
+                            </span>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="昵称" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="accountDiv">
+                        <div class="input-group">
+                           <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input class="form-control" id="username" name="username" type="text" placeholder="用户名(字母或数字)" onkeyup="value=value.replace(/[\W]/g,'') "
+                                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="pwdDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-key-fill"></i>
+                            </span>
+                            <input class="form-control" id="password" name="password" type="text" placeholder="密码" required autofocus>
+                            <span class="badge bg-success message1"><p class="message">请输入8~18位密码</p></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="telDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+                            <input class="form-control" id="phone" name="phone" type="text" placeholder="手机号" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="userTypeDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-bookmark-plus-fill"></i>
+                            </span>
+                            <select class="form-select" id="userType" name="userType">
+                                <option selected>选择用户类型</option>
+                                <option value="0">客户</option>
+                                <option value="1">商户</option>
+                                <option value="2">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">提交</button>
+
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="sexampleModal" tabindex="-1" aria-labelledby="sexampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sexampleModalLabel">修改用户</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form class="form clo-md-12 center-block" id="sregForm" action="${pageContext.request.contextPath}/update" method="post" onsubmit="return scheck();">
+
+                    <div class="form-group-lg" id="sidDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-cursor-text"></i>
+                            </span>
+                            <input class="form-control" id="sid" name="id" type="text" placeholder="ID" readonly="readonly" required autofocus >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="snameDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-pencil-fill"></i>
+                            </span>
+                            <input class="form-control" id="sname" name="name" type="text" placeholder="昵称" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="saccountDiv">
+                        <div class="input-group">
+                           <span class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input class="form-control" id="susername" name="username" type="text" placeholder="用户名(字母或数字)" onkeyup="value=value.replace(/[\W]/g,'') "
+                                   onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="spwdDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-key-fill"></i>
+                            </span>
+                            <input class="form-control" id="spassword" name="password" type="text" placeholder="密码（留空则不修改）" >
+                            <span class="badge bg-success message1"><p class="message">请输入8~18位密码</p></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="stelDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+                            <input class="form-control" id="sphone" name="telephone" type="text" placeholder="手机号" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="saddDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-cursor-fill"></i>
+                            </span>
+                            <input class="form-control" id="saddress" name="address" type="text" placeholder="地址" required autofocus>
+                            <input type="hidden" value="<%=user.getName()%>" name="sname" id="ssname">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="suserTypeDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-bookmark-plus-fill"></i>
+                            </span>
+                            <select class="form-select" id="suserType" name="ident">
+                                <option selected>选择用户类型</option>
+                                <option value="0">客户</option>
+                                <option value="1">商户</option>
+                                <option value="2">管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">提交</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="table-responsive">
     <table class="table table-hover">
@@ -102,7 +251,7 @@
                 <th>${o.comment } </th>
                 <th>${o.time } </th>
                 <th>${o.sname } </th>
-                <th><button type="button" class="btn btn-danger" onclick="deleteUser(${o.id })">删除</button>&nbsp;<button type="button" class="btn btn-warning" onclick="updateUser(${o.id })">修改</button></th>
+                <th><button type="button" class="btn btn-danger" onclick="deleteUser(${o.id })">删除</button>&nbsp;<button type="button" class="btn btn-warning" onclick="updateUser(${o.id })" data-bs-toggle="modal" data-bs-target="#sexampleModal">修改</button></th>
 
             </tr>
         </c:forEach>
@@ -114,14 +263,12 @@
 <%
 }else {
 %>
-<div class="alert alert-danger">您好！<%=user.getName()%>，非管理员，禁止访问。&nbsp;<a href="/Hungry/login.jsp">点我登录管理员账号重试</a></div>
+<div class="alert alert-danger">您好！<%=user.getName()%>，非管理员，禁止访问。&nbsp;<a href="login.jsp">点我登录管理员账号重试</a></div>
 
 
 <%
     }
 %>
-
-
 
 
 </body>
@@ -157,11 +304,89 @@
         }
 
     }
+
+
     function updateUser(id){
+        var sid = document.getElementById("sid")
+        var sname = document.getElementById("sname")
+        var susername = document.getElementById("susername")
+        var sphone = document.getElementById("sphone")
+        var saddress = document.getElementById("saddress")
+        var suserType = document.getElementById("suserType")
+        $.ajax({
+            type:"post",    //post put get 等等
+            url:"findUpdate",
+            //编写注册功能时，要将异步设置为false（缺省为true）
+            //如果async是ture,对于FireFox浏览器，会刷新掉alert()弹出框的内容
+            // 对于Chrome浏览器，第一次注册时会执行error的回调函数，输出“请求在连接过程中出现错误..”
+            async:false,
+            data:{       //要传入ashx文件的数据
+                "id":id,
+                "type":3
+            },
+            success:function (data){
+                var jsonObj = JSON.parse( data );
+                sid.value = jsonObj.id;
+                sname.value = jsonObj.name;
+                susername.value = jsonObj.username;
+                sphone.value = jsonObj.telephone;
+                saddress.value = jsonObj.address;
+                suserType.value = jsonObj.ident;
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown){   //连接至ashx文件失败时，执行函数
+                //XMLHttpRequest在这个例子里没有用到
+                // textStatus是表示状态的字符串，这里textStatus的值是"error"
+                // errorThrown包含连接失败的信息，可以输出查看
+                alert("请求在连接过程中出现错误..\n" + errorThrown);
+            }
+        });
+    }
+
+
+   /* function updateUser(id){
         httpPost("findUpdate", {"type":2,"id":id});
             //window.location.href="${pageContext.request.contextPath}/findUpdate?id="+id;
-        }
+        }*/
 
+
+
+
+</script>
+
+<script type="text/javascript">
+
+    var password = document.querySelector('#password');
+    var message = document.querySelector('.message');
+    var message1 = document.querySelector('.message1');
+    var zmnumReg = /^[0-9a-zA-Z]*$/;
+
+    password.onblur = function() {
+        if (this.value.length < 8 || this.value.length > 18) {
+            message1.className = 'badge bg-danger message1'
+            message.innerHTML = '密码长度错误，应为8~18位';
+            message.className = 'message';
+        } else if (!zmnumReg.test(this.value)){
+            message.innerHTML = '密码只能是字母或者数字';
+            message1.className = 'badge bg-danger message1'
+            message.className = 'message';
+        }else {
+            message.innerHTML = '密码格式正确';
+            message1.className = 'badge bg-danger message1 visually-hidden'
+            message.className = 'message';
+        }
+    }
+
+    function check(){
+        let pwd = document.getElementById('password') // 获取 password 的属性值
+        pwd.value = md5(pwd.value)
+        return true;
+    }
+
+    function scheck(){
+        let pwd = document.getElementById('spassword') // 获取 password 的属性值
+        pwd.value = md5(pwd.value)
+        return true;
+    }
 
 
 

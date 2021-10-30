@@ -15,6 +15,10 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-icons.css">
 </head>
 <body class="text-center">
     <h1>菜品管理</h1>
@@ -50,6 +54,97 @@
         <button type="submit" class="btn btn-success">点我查询</button>
 
     </form>
+
+    <br>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        添加菜品
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">添加菜品</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <form class="form clo-md-12 center-block" id="regForm" action="${pageContext.request.contextPath}/addFood" method="post" onsubmit="return check();">
+                        <div class="form-group-lg" id="telDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="type" name="type" type="text" placeholder="分类" required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="nameDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="foodname" name="foodname" type="text" placeholder="菜品名" required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="accountDiv">
+                            <div class="input-group">
+                           <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="feature" name="feature" type="text" placeholder="特色"  required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="pwdDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="material" name="material" type="text" placeholder="食材" required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="upwdDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="price" name="price" type="text" placeholder="价格" required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="pictureDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="picture" name="picture" type="text" placeholder="图片地址" required autofocus>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group-lg" id="commentDiv">
+                            <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-file-earmark-font-fill"></i>
+                            </span>
+                                <input class="form-control" id="comment" name="comment" type="text" placeholder="备注" required autofocus>
+                            </div>
+                        </div>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary">提交</button>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <%

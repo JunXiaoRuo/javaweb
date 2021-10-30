@@ -47,7 +47,7 @@ public class FoodDao {
 
 
     public List<Food> findByAll() throws  SQLException{
-        String sql = "select food.id,food.uid,food.foodname,food.type,foodtype.typename,food.feature,food.material,food.price,food.picture,food.hits,food.state,food.comment from food left join foodtype on food.type = foodtype.id";
+        String sql = "select food.id,food.uid,food.foodname,food.type,foodtype.typename,food.feature,food.material,food.price,food.picture,food.hits,food.state,food.comment from food left join foodtype on food.type = foodtype.id ORDER BY food.id";
         ps = connection.prepareStatement(sql);
 
         ResultSet resultSet = ps.executeQuery();

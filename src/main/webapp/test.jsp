@@ -16,7 +16,17 @@
 </head>
 <body>
 
-
+    <table>
+        <tr>
+            <td><%@include file="login.jsp"%></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td><%@include file="reg1.jsp"%></td>
+        </tr>
+    </table>
 
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->

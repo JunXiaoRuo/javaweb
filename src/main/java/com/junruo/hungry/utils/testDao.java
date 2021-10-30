@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class testDao {
+public class   testDao {
     public static void main(String[] args) {
         String sql = "select * from user";
         Connection conn = null;

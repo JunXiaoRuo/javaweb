@@ -1,5 +1,6 @@
 package com.junruo.hungry.servlet.user;
 
+import com.alibaba.fastjson.JSONObject;
 import com.junruo.hungry.entity.User;
 import com.junruo.hungry.service.UserService;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,14 +48,23 @@ public class UserFindUpdateServlet extends HttpServlet {
             req.setAttribute("mess","未找到改ID用户，请输入正确的ID");
             req.getRequestDispatcher("findById.jsp").forward(req,resp);
         }else {
-            if(type.equals("1")){
+            String jsonStr = JSONObject.toJSONString(u);
+            PrintWriter out = resp.getWriter();
+            out.print(jsonStr);
+            System.out.println(jsonStr);
+            /*if(type.equals("1")){
                 req.setAttribute("UpUser",u);
                 req.getRequestDispatcher("userupdate.jsp").forward(req,resp);
-            }else {
+            }else if(type.equals("2")){
                 //System.out.println(u.toString());
                 req.setAttribute("UpUser",u);
                 req.getRequestDispatcher("update.jsp").forward(req,resp);
-            }
+            }else {
+                String jsonStr = JSONObject.toJSONString(u);
+                PrintWriter out = resp.getWriter();
+                out.print(jsonStr);
+                System.out.println(jsonStr);
+            }*/
 
         }
 
