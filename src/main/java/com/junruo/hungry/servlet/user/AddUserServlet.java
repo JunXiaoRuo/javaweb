@@ -34,6 +34,7 @@ public class AddUserServlet extends HttpServlet {
         String password = req.getParameter("password");
         String phone = req.getParameter("phone");
         String userType = req.getParameter("userType");
+        String comment = req.getParameter("comment");
 
         //验证手机号是否存在
         //查询数据
@@ -60,6 +61,7 @@ public class AddUserServlet extends HttpServlet {
             user.setTelephone(phone);
             user.setTime(day);
             user.setIdent(Integer.parseInt(userType));
+            user.setComment(comment);
 
             //存储数据
             UserService userService1 = new UserService();

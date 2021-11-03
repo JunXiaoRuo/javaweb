@@ -117,6 +117,15 @@
                         </div>
                     </div>
                     <br>
+                    <div class="form-group-lg" id="commentDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-cursor-text"></i>
+                            </span>
+                            <input class="form-control" id="comment" name="comment" type="text" placeholder="备注" required autofocus>
+                        </div>
+                    </div>
+                    <br>
                     <button type="submit" class="btn btn-primary">提交</button>
 
                 </form>
@@ -205,6 +214,15 @@
                                 <option value="1">商户</option>
                                 <option value="2">管理员</option>
                             </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group-lg" id="scommentDiv">
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-cursor-text"></i>
+                            </span>
+                            <input class="form-control" id="scomment" name="comment" type="text" placeholder="备注" >
                         </div>
                     </div>
                     <br>
@@ -313,6 +331,7 @@
         var sphone = document.getElementById("sphone")
         var saddress = document.getElementById("saddress")
         var suserType = document.getElementById("suserType")
+        var scomment = document.getElementById("scomment")
         $.ajax({
             type:"post",    //post put get 等等
             url:"findUpdate",
@@ -332,6 +351,7 @@
                 sphone.value = jsonObj.telephone;
                 saddress.value = jsonObj.address;
                 suserType.value = jsonObj.ident;
+                scomment.value = jsonObj.comment;
             },
             error:function (XMLHttpRequest, textStatus, errorThrown){   //连接至ashx文件失败时，执行函数
                 //XMLHttpRequest在这个例子里没有用到

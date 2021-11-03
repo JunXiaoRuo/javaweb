@@ -13,25 +13,88 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <table>
-        <tr>
-            <td><%@include file="login.jsp"%></td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-        <tr>
-            <td><%@include file="reg1.jsp"%></td>
-        </tr>
-    </table>
+    <%
+        String name = "login.jsp";
+    %>
+    <form action="<%=name%>" method="post">
+        <button type="submit">提交</button>
+    </form>
+
+    <br><hr>
+
+    <% for (int i = 1; i <3; i++) { %>
+
+    file <%=i%>：<input type="text" name="<%="file"+i%>"><br>
+    <%
+        }
+    %>
+
+    <br><hr>
+
+    <%!
+        int i=0;
+
+        /**
+         * @作者：君若
+         * @功能：该方法用来实现一个简单的计数器
+         */
+        synchronized void add(){
+            i++;
+        }
+
+    %>
+    <% add(); %>
+    当前访问次数：<%=i%>
 
 
-<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-<!-- 包括所有已编译的插件 -->
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <br><hr>
+
+    <jsp:include page="test1.jsp" flush="true">
+        <jsp:param name="name"  value="wangwu"/>
+    </jsp:include>
+
+
+    <br><hr>
+<%--
+
+    <%@ include file="test1.jsp" %>
+--%>
+
+    <br><hr>
+
+    <%--
+    <jsp:forward page="test1.jsp"/>
+--%>
+    <br><hr>
+
+
+
+    <br><hr>
+
+
+    <br><hr>
+
+
+    <br><hr>
+
+
+    <br><hr>
+
+
+
+
 </body>
+
+    <script>
+
+
+    </script>
 </html>

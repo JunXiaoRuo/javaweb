@@ -89,7 +89,9 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">登录</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm visually-hidden"></span>登录</button>
+
                     <br><br>
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="login();">使用手机号登录</button>
                     <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="reg();">注册</button>
@@ -107,7 +109,6 @@
     function check(){
         let pwd = document.getElementById('password') // 获取 password 的属性值
         pwd.value = md5(pwd.value)
-
         return true;
     }
 
